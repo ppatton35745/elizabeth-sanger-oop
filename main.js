@@ -1,3 +1,32 @@
+//////////////////////////MAIN
+
+const es = elizabethSanger;
+
+console.log(es.calendarOfEvents[0].date);
+
+printCalendarOfEvents();
+
+changeCalendarOfEvents("01-01-1990", "A much cooler event");
+
+printCalendarOfEvents();
+
+changeCalendarOfEvents("03-03-1990", "Dinner with M");
+
+printCalendarOfEvents();
+
+printVolunteers();
+
+changeVolunteers("timmy", "email", "timmysnewemail@timmy.com");
+
+printVolunteers();
+
+// changeProperty : (property, newValue, childProperty, child) => {
+
+changeProperty("calendarOfEvents", "Now its a cool function", "event", "02-02-1990")
+
+////////////////////////OBJECTS
+
+
 const elizabethSanger = {
 
     congressionalDistrict : 9,
@@ -55,51 +84,67 @@ const elizabethSanger = {
         headShot : "headshot.jpg",
         pictureOfFamily : "family.jpg",
         PictureOfConstituents : "constituents.jpg"
-    }
+    },
 
-}
-
-const es = elizabethSanger
-
-///////////CHANGE FUNCTIONS
-
-function changeProperty (property, nValue) {
-    if (typeof(es[property]) !== Object)
-    es.property = nValue;
-}
-
-
-
-function changeCalendarOfEvents (property, child, cProperty, cValue) {
-    
-    const coe = elizabethSanger.calendarOfEvents
-    let dateExists = false;
-    
-    coe.forEach(function(obj) {
-        
-            if (Date.parse(cValue) === Date.parse(obj.date)) {
-                obj.event = newEvent;
-                dateExists = true;
+    changeProperty : (property, newValue, childProperty, child) => {
+        if (typeof(this[property]) !== Object && childProperty === undefined && child === undefined) {
+            this.property = nValue;
+        }
+        else if (childProperty !== undefined && child === undefined) {
+            this.property.childProperty = newValue;
+        }
+        else if (child !== undefined) {
+            if (property === "volunteers") {
+                this.changeVolunteers(property, child, childProperty, newValue);
             }
-    });
+            else if (property === "calendarOfEvents") {
+                this.changeCalendarOfEvents(property, child, childProperty, newValue);
+            }
+        }
+        
+    },
 
-    if (!dateExists) {
-        coe.push({date:newDate,event:newEvent});
-    }   
+    changeCalendarOfEvents : (property, child, cProperty, cValue) => {
+    
+        const coe = this.calendarOfEvents
+        let dateExists = false;
+        
+        coe.forEach(function(obj) {
+            
+                if (Date.parse(child) === Date.parse(obj.date)) {
+                    if (cProperty === "date") {
+                        obj.date = cValue;
+                    }
+                    else if (cProperty === "event") {
+                        obj.event = cValue
+                    }
+                    
+                    dateExists = true;
+                }
+        });
+
+        if (!dateExists && cProperty === "event") {
+            coe.push({date:child,event:cValue});
+        }
+    },
+
+    changeVolunteers : (property, child, cProperty, cValue) => {
+        this.volunteers.forEach(function(volunteer) {
+            if (volunteer.name === child){
+                for (property in volunteer) {
+                    if (property === cProperty) {
+                        volunteer[cProperty] = cValue
+                    }
+                }
+            }
+        })
+    }
    
 }
 
-function changeVolunteers (property, child, cProperty, cValue) {
-    elizabethSanger.volunteers.forEach(function(volunteer) {
-        if (volunteer.name === cVolunteer){
-            for (property in volunteer) {
-                if (property === cProperty) {
-                    volunteer[cProperty] = cValue
-                }
-            }
-        }
-    })
-}
+
+
+
 
 ///////////////PRINT FUNCTIONS
 
@@ -117,63 +162,4 @@ function printVolunteers () {
     });
 }
 
-//////////////////////////SCRIPT
 
-console.log(elizabethSanger.calendarOfEvents[0].date);
-
-printCalendarOfEvents();
-
-changeCalendarOfEvents("01-01-1990", "A much cooler event");
-
-printCalendarOfEvents();
-
-changeCalendarOfEvents("03-03-1990", "Dinner with M");
-
-printCalendarOfEvents();
-
-printVolunteers();
-
-changeVolunteers("timmy", "email", "timmysnewemail@timmy.com");
-
-printVolunteers();
-
-console.log(typeof(es.congressionalDistrict));
-    console.log(Array.isArray(es.congressionalDistrict));
-console.log(typeof(es.imageGallery));
-    console.log(Array.isArray(es.imageGallery));
-console.log(typeof(es.volunteers));
-    console.log(Array.isArray(es.volunteers));
-console.log(typeof(es.calendarOfEvents));
-    console.log(Array.isArray(es.calendarOfEvents));
-
-
-// volunteers : [
-//     {
-//         name : "timmy",
-//         address : "timmy's address",
-//         email : "timmy@timmy.com",
-//         phoneNumber : "422-453-8593",
-//         availability : ["Monday", "Wednesday"],
-//         activities : ["Running", "Swimming"]
-//     },
-//     {
-//         name : "jimmy",
-//         address : "jimmy's address",
-//         email : "jimmy@jimmy.com",
-//         phoneNumber : "422-453-8593",
-//         availability : ["Tuesday", "Thursday"],
-//         activities : ["Biking", "Shooting"]
-//     }
-// ],
-
-// biography : "Making Elizabeth",
-
-// imageGallery : {
-//     headShot : "headshot.jpg",
-//     pictureOfFamily : "family.jpg",
-//     PictureOfConstituents : "constituents.jpg"
-// },
-
-// missionStatement : "To Lead Well",
-
-// registerToVoteURL : "www.registertovote.com"

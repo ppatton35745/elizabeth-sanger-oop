@@ -147,20 +147,20 @@ console.log(es.calendarOfEvents[0].date);
 
 printCalendarOfEvents();
 
-changeCalendarOfEvents("01-01-1990", "A much cooler event");
+es.changeCalendarOfEvents("calendarOfEvents", "01-01-1990", "event", "A much cooler event");
 
 printCalendarOfEvents();
 
-changeCalendarOfEvents("03-03-1990", "Dinner with M");
+es.changeCalendarOfEvents("calendarOfEvents", "03-03-1990", "event", "Dinner with M");
 
 printCalendarOfEvents();
 
 printVolunteers();
 
-changeVolunteers("timmy", "email", "timmysnewemail@timmy.com");
+es.changeVolunteers("volunteers", "timmy", "email", "timmysnewemail@timmy.com");
 
 printVolunteers();
 
 // changeProperty : (property, newValue, childProperty, child) => {
 
-changeProperty("calendarOfEvents", "Now its a cool function", "event", "02-02-1990")
+es.changeProperty("calendarOfEvents", "Now its a cool function", "event", "02-02-1990")

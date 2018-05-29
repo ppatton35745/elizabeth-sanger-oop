@@ -101,7 +101,7 @@ function changeCalendarOfEvents (newDate, newEvent) {
             }
     });
 
-    if (dateExists) {
+    if (!dateExists) {
         coe.push({date:newDate,event:newEvent});
     }   
    

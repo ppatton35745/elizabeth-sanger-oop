@@ -107,17 +107,39 @@ function changeCalendarOfEvents (newDate, newEvent) {
    
 }
 
+function changeVolunteers () {
+    elizabethSanger.volunteers.forEach(function(cVolunteer, cProperty, cValue) {
+        if (volunteer.name === cVolunteer){
+            for (property in volunteer) {
+                if (property === cProperty) {
+                    cVolunteer[cProperty] = cValue
+                }
+            }
+        }
+        volunteer.property = value
+
+    })
+}
+
 function printCalendarOfEvents () {
 
     elizabethSanger.calendarOfEvents.forEach(function(event) {
         console.log(`Elizabeth has a/n ${event.event} on ${event.date}`);
       });
 
+function printVolunteers () {
+
+    elizabethSanger.volunteers.forEach(function(volunteer) {
+    console.log(`${volunteer.name} ${volunteer.address} ${volunteer.email} ${volunteer.phoneNumber} ${volunteer.availability} ${volunteer.activities}`);
+});
+
 //     const coe = elizabethSanger.calendarOfEvents;
 //     for (i = 0; i < coe.length; i++) {
 //         console.log(`Elizabeth has a/n ${coe[i].event} on ${coe[i].date}`);
 //     }
 }
+
+
 
 //////////////////////////SCRIPT
 
@@ -132,6 +154,12 @@ printCalendarOfEvents();
 changeCalendarOfEvents("03-03-1990", "Dinner with M");
 
 printCalendarOfEvents();
+
+printVolunteers();
+
+changeVolunteers("timmy", "email", "timmysnewemail@timmy.com");
+
+printVolunteers();
 
 
 

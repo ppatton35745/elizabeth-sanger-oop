@@ -89,16 +89,21 @@ function changeDonationURL (rep, newChangeDonationURL) {
 }
 
 function changeCalendarOfEvents (newDate, newEvent) {
+    
     const coe = elizabethSanger.calendarOfEvents
-    for (obj in coe) {
+    let dateExists = false;
+    
+    coe.forEach(function(obj) {
         
-            if (Date.parse(newDate) === Date.parse(obj[date])) {
-                obj[event] = newEvent;
-                return;
+            if (Date.parse(newDate) === Date.parse(obj.date)) {
+                obj.event = newEvent;
+                dateExists = true;
             }
-    }
+    });
 
-    elizabethSanger.calendarOfEvents.push({date:newDate,event:newEvent});     
+    if (dateExists) {
+        coe.push({date:newDate,event:newEvent});
+    }   
    
 }
 

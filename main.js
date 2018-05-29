@@ -1,3 +1,8 @@
+
+
+////////////////////////OBJECTS
+
+
 const elizabethSanger = {
 
     congressionalDistrict : 9,
@@ -13,6 +18,13 @@ const elizabethSanger = {
     psCrimeAndEnforcement : "A blurb about E.S. crime and enforcement stance",
 
     donationURL : "www.elizabethsangermadeupURL.com",
+
+    biography : "Making Elizabeth",
+
+    
+    missionStatement : "To Lead Well",
+
+    registerToVoteURL : "www.registertovote.com",
 
     calendarOfEvents : [
         {
@@ -44,124 +56,118 @@ const elizabethSanger = {
         }
     ],
 
-    biography : "Making Elizabeth",
-
     imageGallery : {
         headShot : "headshot.jpg",
         pictureOfFamily : "family.jpg",
         PictureOfConstituents : "constituents.jpg"
     },
 
-    missionStatement : "To Lead Well",
-
-    registerToVoteURL : "www.registertovote.com"
-
-}
-
-///////////FUNCTIONS
-
-function changeCongressionalDistrict (representative, newDistrict) {
-    representative.congressionalDistrict = newDistrict;
-}
-
-function changePsTaxes (rep, newPsTaxes) {
-    rep.psTaxes = newPsTaxes;
-}
-
-function changePsJobs (rep, newPsJobs) {
-    rep.psJobs = newPsJobs;
-}
-
-function changePsInfrastructure (rep, newPsInfrastructure) {
-    rep.psInfrastructure = newPsInfrastructure;
-}
-
-function changePsHealthcare (rep, newPsHealthcare) {
-    rep.psHealthCare = newPsHealthcare;
-}
-
-function changePsCrime (rep, newPsCrime) {
-    rep.psHealthCare = newPsCrime;
-}
-
-function changeDonationURL (rep, newChangeDonationURL) {
-    rep.donationURL = newChangeDonationURL;
-}
-
-function changeCalendarOfEvents (newDate, newEvent) {
-    
-    const coe = elizabethSanger.calendarOfEvents
-    let dateExists = false;
-    
-    coe.forEach(function(obj) {
-        
-            if (Date.parse(newDate) === Date.parse(obj.date)) {
-                obj.event = newEvent;
-                dateExists = true;
+    changeProperty : (property, newValue, childProperty, child) => {
+        if (typeof(elizabethSanger[property]) !== Object && childProperty === undefined && child === undefined) {
+            elizabethSanger[property] = newValue;
+        }
+        else if (childProperty !== undefined && child === undefined) {
+            elizabethSanger[property][childProperty] = newValue;
+        }
+        else if (child !== undefined) {
+            if (property === "volunteers") {
+                thelizabethSangeris.changeVolunteers(property, child, childProperty, newValue);
             }
-    });
+            else if (property === "calendarOfEvents") {
+                elizabethSanger.changeCalendarOfEvents(property, child, childProperty, newValue);
+            }
+        }
+        
+    },
 
-    if (!dateExists) {
-        coe.push({date:newDate,event:newEvent});
-    }   
+    changeCalendarOfEvents : (property, child, cProperty, cValue) => {
+    
+        const coe = elizabethSanger.calendarOfEvents
+        console.log(coe);
+        let dateExists = false;
+        
+        coe.forEach(function(obj) {
+            
+                if (Date.parse(child) === Date.parse(obj.date)) {
+                    if (cProperty === "date") {
+                        obj.date = cValue;
+                    }
+                    else if (cProperty === "event") {
+                        obj.event = cValue
+                    }
+                    
+                    dateExists = true;
+                }
+        });
+
+        if (!dateExists && cProperty === "event") {
+            coe.push({date:child,event:cValue});
+        }
+    },
+
+    changeVolunteers : (property, child, cProperty, cValue) => {
+        elizabethSanger.volunteers.forEach(function(volunteer) {
+            if (volunteer.name === child){
+                for (property in volunteer) {
+                    if (property === cProperty) {
+                        volunteer[cProperty] = cValue
+                    }
+                }
+            }
+        })
+    }
    
 }
+
+
+
+
+
+///////////////PRINT FUNCTIONS
 
 function printCalendarOfEvents () {
 
     elizabethSanger.calendarOfEvents.forEach(function(event) {
         console.log(`Elizabeth has a/n ${event.event} on ${event.date}`);
       });
+    }
 
-//     const coe = elizabethSanger.calendarOfEvents;
-//     for (i = 0; i < coe.length; i++) {
-//         console.log(`Elizabeth has a/n ${coe[i].event} on ${coe[i].date}`);
-//     }
+function printVolunteers () {
+
+    elizabethSanger.volunteers.forEach(function(volunteer) {
+    console.log(`${volunteer.name} ${volunteer.address} ${volunteer.email} ${volunteer.phoneNumber} ${volunteer.availability} ${volunteer.activities}`);
+    });
 }
 
-//////////////////////////SCRIPT
 
-console.log(elizabethSanger.calendarOfEvents[0].date);
+/////////////////////////MAIN
 
-printCalendarOfEvents();
+const es = elizabethSanger;
 
-changeCalendarOfEvents("01-01-1990", "A much cooler event");
-
-printCalendarOfEvents();
-
-changeCalendarOfEvents("03-03-1990", "Dinner with M");
+console.log(es.calendarOfEvents[0].date);
 
 printCalendarOfEvents();
 
+es.changeCalendarOfEvents("calendarOfEvents", "01-01-1990", "event", "A much cooler event");
 
+printCalendarOfEvents();
 
-// volunteers : [
-//     {
-//         name : "timmy",
-//         address : "timmy's address",
-//         email : "timmy@timmy.com",
-//         phoneNumber : "422-453-8593",
-//         availability : ["Monday", "Wednesday"],
-//         activities : ["Running", "Swimming"]
-//     },
-//     {
-//         name : "jimmy",
-//         address : "jimmy's address",
-//         email : "jimmy@jimmy.com",
-//         phoneNumber : "422-453-8593",
-//         availability : ["Tuesday", "Thursday"],
-//         activities : ["Biking", "Shooting"]
-//     }
-// ],
+es.changeCalendarOfEvents("calendarOfEvents", "03-03-1990", "event", "Dinner with M");
 
-// biography : "Making Elizabeth",
+printCalendarOfEvents();
 
-// imageGallery : {
-//     headShot : "headshot.jpg",
-//     pictureOfFamily : "family.jpg",
-//     PictureOfConstituents : "constituents.jpg"
-// },
+printVolunteers();
 
-// missionStatement : "To Lead Well",
+es.changeVolunteers("volunteers", "timmy", "email", "timmysnewemail@timmy.com");
 
-// registerToVoteURL : "www.registertovote.com"
+printVolunteers();
+
+// changeProperty : (property, newValue, childProperty, child) => {
+
+es.changeProperty("calendarOfEvents", "Now its a cool function", "event", "02-02-1990");
+
+es.changeProperty("congressionalDistrict", "7");
+
+printCalendarOfEvents();
+
+console.log(es.congressionalDistrict);

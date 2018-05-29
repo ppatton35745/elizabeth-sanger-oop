@@ -64,10 +64,10 @@ const elizabethSanger = {
 
     changeProperty : (property, newValue, childProperty, child) => {
         if (typeof(elizabethSanger[property]) !== Object && childProperty === undefined && child === undefined) {
-            elizabethSanger.property = nValue;
+            elizabethSanger[property] = newValue;
         }
         else if (childProperty !== undefined && child === undefined) {
-            elizabethSanger.property.childProperty = newValue;
+            elizabethSanger[property][childProperty] = newValue;
         }
         else if (child !== undefined) {
             if (property === "volunteers") {
@@ -164,4 +164,10 @@ printVolunteers();
 
 // changeProperty : (property, newValue, childProperty, child) => {
 
-es.changeProperty("calendarOfEvents", "Now its a cool function", "event", "02-02-1990")
+es.changeProperty("calendarOfEvents", "Now its a cool function", "event", "02-02-1990");
+
+es.changeProperty("congressionalDistrict", "7");
+
+printCalendarOfEvents();
+
+console.log(es.congressionalDistrict);

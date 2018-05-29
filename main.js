@@ -98,7 +98,7 @@ function changeCalendarOfEvents (newDate, newEvent) {
             }
     }
 
-    elizabethSanger.calendarOfEvents.push({date:date,event:event});     
+    elizabethSanger.calendarOfEvents.push({date:newDate,event:newEvent});     
    
 }
 

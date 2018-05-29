@@ -88,12 +88,12 @@ function changeDonationURL (rep, newChangeDonationURL) {
     rep.donationURL = newChangeDonationURL;
 }
 
-function changeCalendarOfEvents (date, event) {
-    
-    for (COEevent in elizabethSanger.calendarOfEvents) {
+function changeCalendarOfEvents (newDate, newEvent) {
+    const coe = elizabethSanger.calendarOfEvents
+    for (obj in coe) {
         
-            if (Date.parse(date) === Date.parse(COEevent.date)) {
-                COEevent = event;
+            if (Date.parse(newDate) === Date.parse(obj[date])) {
+                obj[event] = newEvent;
                 return;
             }
     }
@@ -103,12 +103,20 @@ function changeCalendarOfEvents (date, event) {
 }
 
 function printCalendarOfEvents () {
-    for (COEevent in elizabethSanger.calendarOfEvents) {
-        console.log(`Elizabeth has a/n ${COEevent.event} on ${COEevent.date}`);
-    }
+
+    elizabethSanger.calendarOfEvents.forEach(function(event) {
+        console.log(`Elizabeth has a/n ${event.event} on ${event.date}`);
+      });
+
+//     const coe = elizabethSanger.calendarOfEvents;
+//     for (i = 0; i < coe.length; i++) {
+//         console.log(`Elizabeth has a/n ${coe[i].event} on ${coe[i].date}`);
+//     }
 }
 
 //////////////////////////SCRIPT
+
+console.log(elizabethSanger.calendarOfEvents[0].date);
 
 printCalendarOfEvents();
 
@@ -116,7 +124,7 @@ changeCalendarOfEvents("01-01-1990", "A much cooler event");
 
 printCalendarOfEvents();
 
-changeCalemdarOfEvents("03-03-1990", "Dinner with M");
+changeCalendarOfEvents("03-03-1990", "Dinner with M");
 
 printCalendarOfEvents();
 

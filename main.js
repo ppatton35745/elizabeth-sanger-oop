@@ -63,18 +63,18 @@ const elizabethSanger = {
     },
 
     changeProperty : (property, newValue, childProperty, child) => {
-        if (typeof(this[property]) !== Object && childProperty === undefined && child === undefined) {
-            this.property = nValue;
+        if (typeof(elizabethSanger[property]) !== Object && childProperty === undefined && child === undefined) {
+            elizabethSanger.property = nValue;
         }
         else if (childProperty !== undefined && child === undefined) {
-            this.property.childProperty = newValue;
+            elizabethSanger.property.childProperty = newValue;
         }
         else if (child !== undefined) {
             if (property === "volunteers") {
-                this.changeVolunteers(property, child, childProperty, newValue);
+                thelizabethSangeris.changeVolunteers(property, child, childProperty, newValue);
             }
             else if (property === "calendarOfEvents") {
-                this.changeCalendarOfEvents(property, child, childProperty, newValue);
+                elizabethSanger.changeCalendarOfEvents(property, child, childProperty, newValue);
             }
         }
         
@@ -82,7 +82,8 @@ const elizabethSanger = {
 
     changeCalendarOfEvents : (property, child, cProperty, cValue) => {
     
-        const coe = this.calendarOfEvents
+        const coe = elizabethSanger.calendarOfEvents
+        console.log(coe);
         let dateExists = false;
         
         coe.forEach(function(obj) {
@@ -105,7 +106,7 @@ const elizabethSanger = {
     },
 
     changeVolunteers : (property, child, cProperty, cValue) => {
-        this.volunteers.forEach(function(volunteer) {
+        elizabethSanger.volunteers.forEach(function(volunteer) {
             if (volunteer.name === child){
                 for (property in volunteer) {
                     if (property === cProperty) {
